@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Cards</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="../css/shards.min.css"> -->
+   
+   <style>
+table, th, td {
+  border: 1px solid black;
+}
+</style>
+ 
+</head>
+
+<body>
+   		 <div class="container-md" style="width: 85rem;">
+   		
+   
+        <div class="card text-center" >
+            <div class="card-body">
+                <div th:switch="${cardtbls}" class="container my-5">
+                    <p class="my-5">
+						<form action="#" th:action="@{/lu}" method="get">
+								<input id="txtsearch" type="text" name="keyword" th:value="${keyword}">
+								<button type="submit">Go</button>
+							</form>
+                        <a href="/showForm" >Add Card</i></a>
+                        <a href="logout">logout</a>    
+                    </p>
+                    <div class="col-md-10">
+                        <h2 th:case="null">No cards yet!</h2>
+                        <div th:case="*">
+							
+
+
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                       <tr>
+										<th scope="col">Name</th>
+										<th scope="col">Gender</th>
+										<th scope="col">Bate Of Birth</th>
+										<th scope="col">Address</th>
+										<th scope="col">Card Number</th>
+										<th scope="col">Profession</th>
+										<th scope="col">Citizenship</th>
+										<th scope="col">Account No.</th>
+										<th scope="col">Opening Balance</th>
+										<th scope="col">Update</th>
+										<th scope="col">Delete</th>
+									</tr>
+                                   
+                                </thead>
+                                <tbody>
+                                 <tr th:each="card : ${cardtbls}">
+                                            <td scope="row" th:text="${card.name}"></td>
+                                       <td scope="row" th:text="${card.gender}"></td>
+                                        <td scope="row" th:text="${card.dob}"></td>
+                                        <td scope="row" th:text="${card.address}"></td>
+                                       <td scope="row" th:text="${card.cardno}"></td>
+                                        <td scope="row" th:text="${card.profession}"></td>
+                                        <td scope="row" th:text="${card.citizenship}"></td>
+                                        <td scope="row" th:text="${card.accno}"></td>
+                                         <td scope="row" th:text="${card.openingbalance}">
+                                        
+                                        
+                                        <td scope="row"><a th:href="@{/edit/{id}(id=${card.id})}" >Update</a></td>
+                                        <td scope="row"><a th:href="@{/delete/{id}(id=${card.id})}" >Delete</a></td>
+                                    </tr> 
+                                </tbody>
+                            </table>
+                            
+                            <div th:if = "${totalPages > 1}">
+    <div class = "row col-sm-10">
+      <div class = "col-sm-3">
+        Total Rows: [[${totalItems}]]
+      </div>
+      <div class = "col-sm-2">
+        <a th:if="${currentPage > 1}" th:href="@{'/page/' + ${currentPage - 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Previous</a>
+        <span th:unless="${currentPage > 1}">Previous</span>
+      </div>
+      <div class = "col-sm-3">
+                    <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                        <a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+                        <span th:unless="${currentPage != i}">[[${i}]]</span>     
+                    </span>
+      </div>
+      <div class = "col-sm-2">
+        <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+        <span th:unless="${currentPage < totalPages}">Next</span>
+      </div>
+ 
+      <div class="col-sm-1">
+        <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+        <span th:unless="${currentPage < totalPages}">Last</span>
+      </div>
+    </div>
+  </div>
+                          </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+   		</div> 
+   		
+   		
+</body>
+
+</html>

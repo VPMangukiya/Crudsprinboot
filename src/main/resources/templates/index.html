@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+    <head>
+        <title>Spring Security Example</title>
+    </head>
+    <body>
+<!--        <h1 th:if="${currentPage > 1}">Welcome!</h1>-->
+        
+<!--        <p th:if="${isFullyAuthenticated()}">Click <a th:href="@{/login}">here</a> to show list. </p>-->
+
+<div th:if="${#authentication == null}">Click <a th:href="@{/login}">here</a> to login. </div>
+<div th:unless="${#authentication == null}">Click <a th:href="@{/list}">here</a> to show list. </div>
+<!--        <p th:unless="$isFullyAuthenticated()}">Click <a th:href="@{/login}">here</a> to login. </p>-->
+
+
+    </body>
+</html>
